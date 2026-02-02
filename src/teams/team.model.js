@@ -1,57 +1,40 @@
 'use strict';
-
+ 
 import mongoose from "mongoose";
-
+ 
 const teamSchema = new mongoose.Schema({
     teamName: {
         type: String,
         required: [true, 'El nombre del equipo es requerido'],
         trim: true,
-        maxLenght: [100, 'El nombre del equipo no puede tener mas de 100 caracteres'],
-    },
-    captainName: {
-        type: String,
-        required: [true, 'El nombre del capitán es requerido'],
-        trim: true,
-        maxLenght: [100, 'El nombre del capitán no puede tener mas de 100 caracteres'],
-    },
-    contactEmail: {
-        type: String,
-        required: [true, 'El correo de contacto es requerido'],
-        trim: true,
-        lowercase: true,
-    },
-    contactPhone: {
-        type: String,
-        required: [true, 'El teléfono de contacto es requerido'],
-        trim: true,
-    },
-    playersCount: {
-        type: Number,
-        required: [true, 'La cantidad de jugadores es requerida'],
-        min: [1, 'El equipo debe tener al menos un jugador'],
-        max: [30, 'El equipo no puede tener más de 30 jugadores'],
-    },
-    category: {
-        type: String,
-        required: [true, 'La categoría es requerida'],
-        enum: {
-            values: ['FUTBOL_5', 'FUTBOL_7', 'FUTBOL_11'],
-            message: 'Categoría de equipo no válida',
-        },
+        unique: true,
+        maxLength: [50, 'El nombre no puede exceder los 50 caracteres']
     },
     description: {
         type: String,
         trim: true,
-        maxLenght: [500, 'La descripción no puede exceder de 500 caracteres'],
+        maxLength: [200, 'La descripción es muy larga']
+    },
+    // Añadimos el Entrenador como String
+    coach: {
+        type: String,
+        required: [true, 'El nombre del entrenador es requerido'],
+        trim: true,
+        maxLength: [100, 'El nombre del coach es demasiado largo']
+    },
+    // Añadimos el Capitán
+    captain: {
+        type: String,
+        required: [true, 'El equipo debe tener un capitán asignado']
+    },
+    logo: {
+        type: String,
+        default: 'teams/default_logo'
     },
     isActive: {
         type: Boolean,
-        default: true,
-    },
-}, {
-    timestamps: true
-});
-
-// exportamos el modelo con el nombre Team
+        default: true
+    }
+}, { timestamps: true });
+ 
 export default mongoose.model('Team', teamSchema);

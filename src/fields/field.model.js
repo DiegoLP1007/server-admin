@@ -1,29 +1,30 @@
 'use strict';
-
+ 
 import mongoose from "mongoose";
-
+ 
 const fieldSchema = new mongoose.Schema({
     fieldName: {
         type: String,
         required: true,
         trim: true,
-        maxLenght: [100, 'El nombre del campo no puede tener mas de 100 caracteres'],
+        maxLegth: [100, 'El nombre del campo no puede tener mas de 100 caracteres']
     },
+ 
     fieldType: {
         type: String,
-        required: [true, 'El tipo de campo es requerido'],
-        //enum: valores permitidos
+        required: [true, 'El tipo de campo es obligatorio'],
         enum: {
             values: ['NATURAL', 'SINTETICA', 'CONCRETO'],
             message: 'Tipo de superficie no valida',
         },
     },
+ 
     capacity: {
         type: String,
         required: [true, 'La capacidad es requerida'],
-        enum:{
+        enum: {
             values: ['FUTBOL_5', 'FUTBOL_7', 'FUTBOL_11'],
-            message: 'Capacidad no valida'
+            message: 'Capacidad no válida',
         },
     },
     pricePerHour: {
@@ -34,10 +35,11 @@ const fieldSchema = new mongoose.Schema({
     description: {
         type: String,
         trim: true,
-        maxLenght: [500, 'La descripcion no puede exceder de 500 caracteres'],
+        maxLength: [500, 'La descripción no puede exceder 500 caracteres'],
     },
     photo: {
         type: String,
+        // valor por defecto
         default: 'fields/kinal_sports_nyvxo5',
     },
     isActive: {
@@ -45,10 +47,10 @@ const fieldSchema = new mongoose.Schema({
         default: true,
     },
 })
-
-fieldSchema.index({ isActive: 1 });
-fieldSchema.index({ fieldName: 1 });
-fieldSchema.index({ fieldName: 1, isActive: 1});
-
-//exportamos el modelo con el nombre Field
+ 
+fieldSchema.index({isActive: 1});
+fieldSchema.index({fieldName: 1});
+fieldSchema.index({fieldName: 1, isActive: 1});
+ 
+// exportamos el modelo con el nombre Field
 export default mongoose.model('Field', fieldSchema);

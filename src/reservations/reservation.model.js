@@ -1,7 +1,7 @@
 'use strict';
-
+ 
 import mongoose from "mongoose";
-
+ 
 const reservationSchema = new mongoose.Schema({
     field: {
         type: mongoose.Schema.Types.ObjectId,
@@ -52,6 +52,6 @@ const reservationSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
-
+ 
 // exportamos el modelo con el nombre Reservation
 export default mongoose.model('Reservation', reservationSchema);
